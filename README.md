@@ -1,2 +1,2 @@
 # ParaLog
-Logbook for skydiving, parachuting, windtunneling
+The SkyDiving, Windtunneling logbook on your Smartphone.
