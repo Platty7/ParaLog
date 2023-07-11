@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,10 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import ch.timonbissig.paralog.feature_paraloging.presentation.mainScreen.component.JumpSector
 import ch.timonbissig.paralog.feature_paraloging.presentation.mainScreen.component.WindTunnelSector
 import ch.timonbissig.paralog.ui.theme.ParaLogTheme
@@ -41,7 +40,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             ParaLogTheme {
-                MainScreen()
+                val navController = rememberNavController()
+                MainScreen(navController = navController)
             }
         }
     }
@@ -50,10 +50,30 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavController) {
+    val navItems = listOf(Screens.Cockpit, Screens.Home, Screens.AddEntry, Screens.Account)
+    val backStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(modifier = Modifier
         .fillMaxSize()
-        .background(MaterialTheme.colorScheme.background))
+        .background(MaterialTheme.colorScheme.background),
+    bottomBar = {
+        NavigationBar(containerColor = MaterialTheme.colorScheme.primary) {
+            navItems.forEach { item ->
+                val selected = item.route == backStackEntry.value?.destination?.route
+
+                NavigationBarItem(
+                    selected = selected,
+                    onClick = { navController.navigate(item.route) },
+                    label = {
+                        Text(text = item.title, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onTertiary)
+                    },
+                    icon = {
+                        Icon(imageVector = item.icon, contentDescription = "${item.title} Icon", tint = MaterialTheme.colorScheme.onTertiary)
+                    }
+                )
+            }
+        }
+    })
         {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Column {
@@ -83,26 +103,11 @@ fun MainScreen() {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+    val navController = rememberNavController()
+    MainScreen(navController = navController)
 }
 
-@Composable
-fun Navigations(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screens.Home.route) {
-        composable(Screens.Home.route) {
-            MainScreen()
-        }
-        composable(Screens.Cockpit.route) {
-            // ToDo Cockpit Screen
-        }
-        composable(Screens.AddEntry.route) {
-            // ToDo AddEntry Screen
-        }
-        composable(Screens.Account.route) {
-            // ToDo Account Screen
-        }
-    }
-}
+
 
 
 
