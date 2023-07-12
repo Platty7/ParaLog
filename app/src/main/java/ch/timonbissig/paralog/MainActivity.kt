@@ -28,8 +28,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
-import ch.timonbissig.paralog.feature_paraloging.presentation.EntryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.cockpitScreen.CockpitScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.mainScreen.MainScreen
 import ch.timonbissig.paralog.ui.theme.ParaLogTheme
