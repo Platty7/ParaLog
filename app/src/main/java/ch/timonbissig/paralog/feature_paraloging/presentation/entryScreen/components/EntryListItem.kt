@@ -45,7 +45,8 @@ fun EntryListItem(icon: ImageVector, date:String, comment: String, function: Str
             androidx.compose.material3.Icon(imageVector = icon, contentDescription = "Icons", modifier = Modifier
                 .padding(start = 6.dp)
                 .size(50.dp)
-                .align(CenterVertically))
+                .align(CenterVertically),
+            tint = MaterialTheme.colorScheme.onTertiary)
             Column(Modifier.padding(8.dp)) {
                 Row {
                     Text(
@@ -55,16 +56,17 @@ fun EntryListItem(icon: ImageVector, date:String, comment: String, function: Str
                     )
                     Text(
                         text = "AFF",
-                        style = MaterialTheme.typography.headlineMedium,
+                        style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier
                             .align(CenterVertically)
-                            .padding(start = 60.dp),
+                            .padding(start = 40.dp),
+                        color = MaterialTheme.colorScheme.onTertiary
                     )
                 }
-                Row {
-                    Text(text = location, style = MaterialTheme.typography.bodyMedium)
-                    Spacer(modifier = Modifier.padding(start = 60.dp))
-                    Text(text = comment, style = MaterialTheme.typography.bodyMedium)
+                Row (verticalAlignment = Alignment.Top){
+                    Text(text = location, style = MaterialTheme.typography.bodyMedium,color = MaterialTheme.colorScheme.onTertiary)
+                    Spacer(modifier = Modifier.padding(start = 24.dp))
+                    Text(text = comment, style = MaterialTheme.typography.bodyMedium,color = MaterialTheme.colorScheme.onTertiary)
                 }
             }
         }
