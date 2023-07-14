@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Paragliding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -29,9 +30,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.cockpitScreen.CockpitScreen
+import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.FakeData
 import ch.timonbissig.paralog.feature_paraloging.presentation.mainScreen.MainScreen
 import ch.timonbissig.paralog.ui.theme.ParaLogTheme
@@ -94,7 +95,7 @@ class MainActivity : ComponentActivity() {
 fun NavGraph(navController: NavHostController) {
     val items = listOf(
         FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
-        FakeData(Icons.Rounded.Paragliding, "26.05.2023", "", "AFF", "Zürich")
+        FakeData(Icons.Rounded.Air, "26.05.2023", "", "AFF", "Zürich")
     )
         NavHost(navController = navController, startDestination = Screens.Home.route) {
             composable(route = Screens.Home.route) {
