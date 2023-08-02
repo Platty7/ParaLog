@@ -13,7 +13,7 @@ import androidx.compose.material.icons.rounded.Paragliding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButtonElevation
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -21,7 +21,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -70,18 +69,11 @@ class MainActivity : ComponentActivity() {
                     }
                 },
                     floatingActionButton = {
-                           ExtendedFloatingActionButton(
-                               containerColor = MaterialTheme.colorScheme.primary,
-                               text = {
-                                      Text(text = "Add")
-                               },
-                               icon = { 
-                                      Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add")
-                               },
-                               onClick = { /*TODO*/ },
-                           )
+                           FloatingActionButton(onClick = { /*TODO*/ }, containerColor = MaterialTheme.colorScheme.primary) {
+                               Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Entry")
+                           }
                     },
-                    floatingActionButtonPosition = FabPosition.Center,
+                    floatingActionButtonPosition = FabPosition.End,
                     content = {
                         NavGraph(navController = navController)
                     })
@@ -91,11 +83,19 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun NavGraph(navController: NavHostController) {
     val items = listOf(
         FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
-        FakeData(Icons.Rounded.Air, "26.05.2023", "", "AFF", "Zürich")
+        FakeData(Icons.Rounded.Air, "26.05.2023", "", "AFF", "Zürich"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
+        FakeData(Icons.Rounded.Paragliding, "26.06.2023", "Lvel 1", "AFF", "Beromünster"),
     )
         NavHost(navController = navController, startDestination = Screens.Home.route) {
             composable(route = Screens.Home.route) {
@@ -108,7 +108,7 @@ fun NavGraph(navController: NavHostController) {
                 CockpitScreen(navController = navController)
             }
             composable(route = Screens.AddEntry.route) {
-                EntryScreen(navController = navController, items)
+                EntryScreen(navController = navController, entryList = items)
             }
         }
 }
