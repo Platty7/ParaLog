@@ -30,6 +30,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
+import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.informationscreen.InformationScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.cockpitScreen.CockpitScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.FakeData
@@ -109,6 +110,9 @@ fun NavGraph(navController: NavHostController) {
             }
             composable(route = Screens.AddEntry.route) {
                 EntryScreen(navController = navController, entryList = items)
+            }
+            composable(route = Screens.Information.route) {
+                InformationScreen(navController = navController)
             }
         }
 }

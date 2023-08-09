@@ -1,6 +1,7 @@
 package ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import ch.timonbissig.paralog.Screens
 
 @Composable
 fun SettingsScreen(navController: NavController) {
@@ -79,7 +81,10 @@ fun SettingsScreen(navController: NavController) {
             .clip(RoundedCornerShape(12.dp))
             .height(50.dp)
             .background(MaterialTheme.colorScheme.secondary)
-            .fillMaxWidth(0.5f),
+            .fillMaxWidth(0.5f)
+            .clickable {
+                navController.navigate(Screens.Information.route)
+            },
             contentAlignment = Center
         ){
             Row (
