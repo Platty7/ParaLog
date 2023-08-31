@@ -11,7 +11,6 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Paragliding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -31,6 +30,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.informationscreen.InformationScreen
+import ch.timonbissig.paralog.feature_paraloging.presentation.addEntryScreen.AddSkyDiveEntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.cockpitScreen.CockpitScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.EntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.entryScreen.FakeData
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ParaLogTheme {
                 val navController = rememberNavController()
-                val navItems = listOf(Screens.Cockpit, Screens.Home, Screens.AddEntry, Screens.Account)
+                val navItems = listOf(Screens.Cockpit, Screens.Home, Screens.Entries, Screens.Account)
                 val backStackEntry = navController.currentBackStackEntryAsState()
                 Scaffold(modifier = Modifier
                     .fillMaxSize()
@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
                     }
                 },
                     floatingActionButton = {
-                           FloatingActionButton(onClick = { /*TODO*/ }, containerColor = MaterialTheme.colorScheme.primary) {
+                           FloatingActionButton(onClick = { navController.navigate(Screens.AddSkyDiveEntry.route) }, containerColor = MaterialTheme.colorScheme.primary) {
                                Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Entry")
                            }
                     },
@@ -108,11 +108,14 @@ fun NavGraph(navController: NavHostController) {
             composable(route = Screens.Cockpit.route) {
                 CockpitScreen(navController = navController)
             }
-            composable(route = Screens.AddEntry.route) {
+            composable(route = Screens.Entries.route) {
                 EntryScreen(navController = navController, entryList = items)
             }
             composable(route = Screens.Information.route) {
                 InformationScreen(navController = navController)
+            }
+            composable(route = Screens.AddSkyDiveEntry.route) {
+                AddSkyDiveEntryScreen(navController = navController)
             }
         }
 }
