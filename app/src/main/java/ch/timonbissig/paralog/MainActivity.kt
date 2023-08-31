@@ -10,7 +10,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Paragliding
+import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -28,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ch.timonbissig.paralog.Screens.Account.icon
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.informationscreen.InformationScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.addEntryScreen.AddSkyDiveEntryScreen
@@ -70,9 +73,21 @@ class MainActivity : ComponentActivity() {
                     }
                 },
                     floatingActionButton = {
-                           FloatingActionButton(onClick = { navController.navigate(Screens.AddSkyDiveEntry.route) }, containerColor = MaterialTheme.colorScheme.primary) {
-                               Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Entry")
-                           }
+                        val currentPage = backStackEntry.value?.destination?.route
+                        if (currentPage == Screens.AddSkyDiveEntry.route){
+                            ExtendedFloatingActionButton(onClick = { "navController.navigate(Screens.AddSkyDiveEntry.route)" }, icon = { Icon(
+                                imageVector = Icons.Rounded.Save,
+                                contentDescription = "Save"
+                            )}, text = { Text(text = "Speichern")},
+                                containerColor = MaterialTheme.colorScheme.primary)
+                        }
+                        else{
+                               FloatingActionButton(onClick = { navController.navigate(Screens.AddSkyDiveEntry.route) }, containerColor = MaterialTheme.colorScheme.primary) {
+                              Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Entry")
+                          }
+                        }
+
+
                     },
                     floatingActionButtonPosition = FabPosition.End,
                     content = {
@@ -119,6 +134,8 @@ fun NavGraph(navController: NavHostController) {
             }
         }
 }
+
+
 
 
 
