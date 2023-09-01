@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Adjust
 import androidx.compose.material.icons.rounded.AirplanemodeActive
 import androidx.compose.material.icons.rounded.CalendarMonth
@@ -26,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ch.timonbissig.paralog.Screens
+import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,14 +70,23 @@ fun AddSkyDiveEntryScreen(navController: NavController) {
         mutableStateOf("")
     }
 
+
+
     Column (
         Modifier
             .fillMaxSize()
             .padding(24.dp)){
-        Icon(imageVector = Icons.Rounded.Paragliding, contentDescription = "Parachute", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.align(alignment = Alignment.End).size(70.dp))
+        Row(){
+            Row (){
+                Icon(imageVector = Icons.Rounded.CalendarMonth, contentDescription = "Date", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(50.dp))
+                Text(text = "23.06.2023", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
+            }
+            Spacer(modifier = Modifier.padding(start = 48.dp))
+            Icon(imageVector = Icons.Rounded.Paragliding, contentDescription = "Parachute", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(70.dp))
+        }
         Row (){
-            Icon(imageVector = Icons.Rounded.CalendarMonth, contentDescription = "Date", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(50.dp))
-            Text(text = "23.06.2023", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
+            Icon(imageVector = Icons.Rounded.AccessTime, contentDescription = "Date", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(50.dp))
+            Text(text = "10:45", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
         }
         Spacer(modifier = Modifier.padding(top = 24.dp))
             TextField(modifier = Modifier.fillMaxWidth(),value = filledLocationText, onValueChange = {filledLocationText = it}, leadingIcon = {
@@ -94,31 +106,31 @@ fun AddSkyDiveEntryScreen(navController: NavController) {
         TextField(modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),value = filledJumpHeight, onValueChange = {filledJumpHeight = it}, leadingIcon = {
             Icon(imageVector = Icons.Rounded.Height, contentDescription = "Locaion")
         }, label = {
-            Text(text = "filledJumpHeight")
+            Text(text = "Absprung Höhe (m)")
         })
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
         TextField(modifier = Modifier.fillMaxWidth(),value = filledOpeningHeighttText,keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), onValueChange = {filledOpeningHeighttText = it}, leadingIcon = {
             Icon(imageVector = Icons.Rounded.OpenInFull, contentDescription = "Locaion")
         }, label = {
-            Text(text = "filledOpeningHeighttText")
+            Text(text = "Öffnungs Höhe (m)")
         })
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
         TextField(modifier = Modifier.fillMaxWidth(),value = filledFreeFlyTimetText,keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), onValueChange = {filledFreeFlyTimetText = it}, leadingIcon = {
             Icon(imageVector = Icons.Rounded.Timer, contentDescription = "Locaion")
         }, label = {
-            Text(text = "filledFreeFlyTimetText")
+            Text(text = "Freifallzeit (s)")
         })
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
         TextField(modifier = Modifier.fillMaxWidth(),value = filledParachuteTimeText,keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), onValueChange = {filledParachuteTimeText = it}, leadingIcon = {
             Icon(imageVector = Icons.Rounded.Timer, contentDescription = "Locaion")
         }, label = {
-            Text(text = "filledParachuteTimeText")
+            Text(text = "Schirmzeit (s)")
         })
         Spacer(modifier = Modifier.padding(bottom = 12.dp))
         TextField(modifier = Modifier.fillMaxWidth(),value = filledTargetDistanceText,keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), onValueChange = {filledTargetDistanceText = it}, leadingIcon = {
             Icon(imageVector = Icons.Rounded.Adjust, contentDescription = "Locaion")
         }, label = {
-            Text(text = "filledTargetDistanceText")
+            Text(text = "Entfernung zum Ziel (m)")
         })
 
     }

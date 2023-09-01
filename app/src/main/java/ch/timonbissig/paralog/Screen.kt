@@ -8,6 +8,7 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Paragliding
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class Screens(var title:String, var icon:ImageVector, var route:String) {
@@ -18,4 +19,5 @@ sealed class Screens(var title:String, var icon:ImageVector, var route:String) {
     object Account : Screens("Account", Icons.Rounded.AccountCircle, "account_screen")
     object Information : Screens("Information", Icons.Rounded.Info, "information_screen")
     object  AddSkyDiveEntry : Screens("AddSkyDiveEntry", Icons.Rounded.Paragliding, "addskydiveentry_screen")
+    object  GeneralSettings : Screens("GeneralSettings", Icons.Rounded.Settings, "generalsettings_screen")
 }

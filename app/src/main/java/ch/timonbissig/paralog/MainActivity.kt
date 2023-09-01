@@ -32,6 +32,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ch.timonbissig.paralog.Screens.Account.icon
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.SettingsScreen
+import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.general_settings.GeneralSettingsScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.accountScreen.informationscreen.InformationScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.addEntryScreen.AddSkyDiveEntryScreen
 import ch.timonbissig.paralog.feature_paraloging.presentation.cockpitScreen.CockpitScreen
@@ -131,6 +132,9 @@ fun NavGraph(navController: NavHostController) {
             }
             composable(route = Screens.AddSkyDiveEntry.route) {
                 AddSkyDiveEntryScreen(navController = navController)
+            }
+            composable(route = Screens.GeneralSettings.route) {
+                GeneralSettingsScreen(navController = navController)
             }
         }
 }

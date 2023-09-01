@@ -68,7 +68,10 @@ fun SettingsScreen(navController: NavController) {
             .clip(RoundedCornerShape(12.dp))
             .background(MaterialTheme.colorScheme.secondary)
             .height(50.dp)
-            .fillMaxWidth(0.5f),
+            .fillMaxWidth(0.5f)
+            .clickable {
+                navController.navigate(Screens.GeneralSettings.route)
+            },
         contentAlignment = Center){
             Row (){
                 Icon(imageVector = Icons.Rounded.Settings, contentDescription = "Person")
