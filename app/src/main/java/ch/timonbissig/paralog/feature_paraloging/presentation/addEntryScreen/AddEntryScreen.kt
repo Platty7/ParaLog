@@ -1,6 +1,7 @@
 package ch.timonbissig.paralog.feature_paraloging.presentation.addEntryScreen
 
 import android.widget.DatePicker
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,18 +21,23 @@ import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.OpenInFull
 import androidx.compose.material.icons.rounded.Paragliding
 import androidx.compose.material.icons.rounded.Timer
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +49,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ch.timonbissig.paralog.Screens
+import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,8 +80,16 @@ fun AddSkyDiveEntryScreen(navController: NavController) {
         mutableStateOf("")
     }
 
-
-
+    val datePickerState = rememberDatePickerState()
+    val showDialog = rememberSaveable { mutableStateOf(false) }
+    val selectedDate = datePickerState.selectedDateMillis
+    val date = if (selectedDate != null){
+        Date(selectedDate)
+    }
+    else{
+        Date.from(Instant.now())
+    }
+    val selectedDateString = SimpleDateFormat("dd.MM.yyyy").format(date)
     Column (
         Modifier
             .fillMaxSize()
@@ -79,14 +97,31 @@ fun AddSkyDiveEntryScreen(navController: NavController) {
         Row(){
             Row (){
                 Icon(imageVector = Icons.Rounded.CalendarMonth, contentDescription = "Date", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(50.dp))
-                Text(text = "23.06.2023", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
+                Text(text = selectedDateString, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center, modifier = Modifier.clickable { showDialog.value = true })
+                if (showDialog.value) {
+                    DatePickerDialog(
+                        onDismissRequest = { showDialog.value = false },
+                        confirmButton = {
+                            TextButton(onClick = { showDialog.value = false }) {
+                                Text("Ok")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showDialog.value = false }) {
+                                Text("Cancel")
+                            }
+                        }
+                    ) {
+                        DatePicker(state = datePickerState)
+                    }
+                }
             }
             Spacer(modifier = Modifier.padding(start = 48.dp))
             Icon(imageVector = Icons.Rounded.Paragliding, contentDescription = "Parachute", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(70.dp))
         }
         Row (){
             Icon(imageVector = Icons.Rounded.AccessTime, contentDescription = "Date", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(50.dp))
-            Text(text = "10:45", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
+            Text(text = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm")), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, fontSize = MaterialTheme.typography.headlineLarge.fontSize, textAlign = TextAlign.Center)
         }
         Spacer(modifier = Modifier.padding(top = 24.dp))
             TextField(modifier = Modifier.fillMaxWidth(),value = filledLocationText, onValueChange = {filledLocationText = it}, leadingIcon = {
